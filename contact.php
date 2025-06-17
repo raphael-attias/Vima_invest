@@ -1,4 +1,12 @@
 <?php
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Dotenv\Dotenv;
+
+// Chargement de .env
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nom = htmlspecialchars(trim($_POST['nom'] ?? ''));
     $email = filter_var(trim($_POST['email'] ?? ''), FILTER_VALIDATE_EMAIL);
@@ -6,19 +14,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (!$nom || !$email || !$message) {
         http_response_code(400);
-        echo json_encode(["error" => "Tous les champs sont obligatoires et email valide requis."]);
+        echo json_encode(["error" => "Tous les champs sont obligatoires et un email valide est requis."]);
         exit;
     }
 
-    // Préparer le contenu JSON pour le webhook
-    $webhookUrl = "https://ton-webhook-url.ici"; // <-- Remplace par ton URL de webhook
+    $webhookUrl = $_ENV['WEBHOOK_URL'] ?? null;
+    if (!$webhookUrl) {
+        http_response_code(500);
+        echo json_encode(["error" => "Configuration manquante."]);
+        exit;
+    }
 
     $payload = json_encode([
         "username" => "Formulaire VIMA Invest",
         "content" => "**Nouveau message de contact**\n**Nom :** $nom\n**Email :** $email\n**Message :** $message"
     ]);
 
-    // Envoi avec cURL
     $ch = curl_init($webhookUrl);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);

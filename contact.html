@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contactez VIMA Invest pour toute question ou demande.">
   <title>Contact | VIMA Invest</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="container">
-      <img src="assets/images/logo boite.png" alt="VIMA Invest" class="logo" />
+      <img src="assets/images/logo-white.png" alt="VIMA Invest" class="logo" />
       <nav>
         <ul class="nav">
           <li><a href="index.html">Accueil</a></li>
           <li><a href="formations.html">Formations</a></li>
           <li><a href="tarifs.html">Tarifs</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
         </ul>
         <button class="burger" onclick="toggleMenu()">☰</button>
       </nav>
@@ -24,52 +25,43 @@
 
   <main class="container">
     <h1>Contactez-nous</h1>
-    <form id="contactForm" action="contact.php" method="post">
-    <label for="nom">Nom :</label>
-    <input type="text" id="nom" name="nom" required>
 
-    <label for="email">Email :</label>
-    <input type="email" id="email" name="email" required>
+    <section class="contact-form">
+      <form id="contactForm" method="POST" action="contact.php">
+        <label for="nom">Nom :</label>
+        <input type="text" name="nom" id="nom" required>
 
-    <label for="message">Message :</label>
-    <textarea id="message" name="message" rows="6" required></textarea>
+        <label for="email">Email :</label>
+        <input type="email" name="email" id="email" required>
 
-    <button type="submit" class="btn-secondary">Envoyer</button>
-  </form>
+        <label for="message">Message :</label>
+        <textarea name="message" id="message" rows="5" required></textarea>
 
-  <div id="responseMessage"></div>
+        <button type="submit" class="btn-primary">Envoyer</button>
+      </form>
+    </section>
 
-  <script>
-  document.getElementById('contactForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    const form = e.target;
-    const data = new FormData(form);
-    const responseMessage = document.getElementById('responseMessage');
-
-    const response = await fetch(form.action, {
-      method: form.method,
-      body: data
-    });
-
-    const result = await response.json();
-
-    if (response.ok) {
-      responseMessage.style.color = 'green';
-      responseMessage.textContent = result.success;
-      form.reset();
-    } else {
-      responseMessage.style.color = 'red';
-      responseMessage.textContent = result.error || 'Erreur inconnue';
-    }
-  });
-  </script>
+    <section class="about-creators">
+      <h2>Qui sommes-nous ?</h2>
+      <div class="creators-grid">
+        <figure>
+          <img src="assets/images/max1.jpg" alt="Photo du créateur 1">
+          <figcaption><strong>Maxence RIPERT</strong><br>Co-fondateur</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/images/vi1.png" alt="Photo du créateur 2">
+          <figcaption><strong>Vicente CAMPELLO</strong><br>Co-fondateur</figcaption>
+        </figure>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <p>&copy; 2025 VIMA Invest</p>
+      <p>&copy; 2025 VIMA Invest – Tous droits réservés</p>
     </div>
   </footer>
+
+  <script src="assets/js/script.js"></script>
 </body>
 </html>
