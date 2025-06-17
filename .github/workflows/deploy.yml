@@ -1,0 +1,25 @@
+
+name: Deploy to Raspberry Pi
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Deploy via SSH
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: pi
+        key: ${{ secrets.SSH_KEY }}
+        port: 22
+        script: |
+          cd /home/pi/ton_projet
+          git pull origin main
