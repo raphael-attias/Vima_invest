@@ -3,7 +3,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use Dotenv\Dotenv;
 
-// Chargement de .env
+// Chargement de .env 
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
