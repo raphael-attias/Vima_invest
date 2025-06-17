@@ -17,9 +17,9 @@ jobs:
       uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.SSH_HOST }}
-        username: pi
+        username: init
         key: ${{ secrets.SSH_KEY }}
         port: 22
         script: |
-          cd /home/pi/ton_projet
+          cd /home/init
           git pull origin main
