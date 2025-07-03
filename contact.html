@@ -27,7 +27,7 @@
     <h1>Contactez-nous</h1>
 
     <section class="contact-form">
-      <form id="contactForm" method="POST" action="contact.php">
+      <form id="contactForm">
         <label for="nom">Nom :</label>
         <input type="text" name="nom" id="nom" required>
 
@@ -39,6 +39,9 @@
 
         <button type="submit" class="btn-primary">Envoyer</button>
       </form>
+      
+      <!-- Message de confirmation/erreur -->
+      <div id="messageStatus" class="message-status" style="display: none;"></div>
     </section>
 
     <section class="about-creators">
